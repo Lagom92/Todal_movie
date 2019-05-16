@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 {% block bb %}
         <div class="col-md-12 p-0">
+            <!--나중에 이미지 바꾸고 크기 조정해야함 & 글자 가운데 정렬-->
             <img src="/static/images/search2.jpg" style="width:100%; height:600px" class="img-responsive" >
               <div class="carousel-caption">
               <h1 class=" text-black mb-0 pt-md-5 pt-5 wow fadeInDown" data-wow-delay="0.3s" style="font-family: 'Playfair Display SC'">Todal Movie</h1>         
                 <br><br><br>
+                <!--영화 검색 -->
                 <div class="justify-content-center">
+                    <!--작품, 제목,배우,감독으로 원하는 영화를 검색-->
                     <form action="{% url 'movies:search'%}" method="GET">
+                    <!--get 방식인데 토큰이?-->
+                    <!--{% csrf_token %}-->
                     <i class="fas fa-search fa-2x"></i>
                     <input type="text" name="searchword" value="{{searchword}}" placeholder="작품 제목을 검색해보세요." class="shadow-lg rounded border border-dark w-75 p-2" style="font-family: 'Noto Sans KR', sans-serif;">
+                    <!--<input type="submit", value="search">-->
                     </form>
                 </div>
             </div>
@@ -16,16 +22,19 @@
         
     <div class="container">
         <br>
+        <!--resultMovie에 데이트가 있다면 영화 딕셔너리 출력 후 디테일 링크 -->
         {% if resultMovie %}
             <ul>
             <h2 class="fontchange" style="font-family: 'Noto Sans KR', sans-serif;"><strong>검색결과</strong></h2><br>
             {% for rm in resultMovie %}
                 <a class="h5 text-dark" style="font-family: 'Noto Sans KR', sans-serif;" href="{% url 'movies:detail' rm.id %}">{{rm.title}}</a>
+                <!--검색 결과에 이미지도 추가하고 싶은데..방법이 안떠오름-->
                 <br><br>
             {% endfor %}
             </ul>
         {% else %}
             <ul>
+            <!--resultMovie가 빈 리스트라면 이름을 입력해달란 메세지, -->
             <h3 class="fontchange"style="font-family: 'Noto Sans KR', sans-serif;"><strong>검색 결과가 없습니다.</strong></h3>
             </ul>
         {% endif %}

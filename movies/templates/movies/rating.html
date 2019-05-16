@@ -1,3 +1,4 @@
+<!--평점 폼-->
 <form action="{% url 'movies:scoreCreate' movie.id %}" method="POST">
     {% csrf_token %}
     <select name="rating" id="rating">

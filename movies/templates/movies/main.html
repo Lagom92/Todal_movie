@@ -3,10 +3,12 @@
 {% block bb %}
       
     <div class="col-md-12 p-0">
+        <!--나중에 이미지 바꾸고 크기 조정해야함 & 글자 가운데 정렬-->
         <img src="../static/images/search2.jpg" style="width:100%; height:600px"  >
         <div class="carousel-caption">
             <h1 class=" text-black mb-0 pt-md-5 pt-5 wow fadeInDown" data-wow-delay="0.3s" style="font-family: 'Playfair Display SC';text-shadow: 1px 2px gray;">Todal Movie</h1>
             <br><br><br>
+            <!--영화 검색 -->
             <div class="justify-content-center">
                 <form method="GET" class="d-flex justify-content-center">
                     <i class="fas fa-search fa-2x"></i>
@@ -16,6 +18,7 @@
         </div>
     </div>
     
+        <!--영화 목록-->
     <div class="container">
         
         <h2 class="text-center mt-5" style="font-family: 'Playfair Display SC';text-decoration: underline; "><b>movie list</b></h2>
@@ -36,6 +39,7 @@
         {% endfor %}
         </div>
         
+        <!--pagination-->
         <nav aria-label="Page navigation example">
             <ul class="d-flex justify-content-center my-4">
                 <h5>Page {{ movies.number }} of {{ movies.paginator.num_pages }}.</h5>
@@ -59,6 +63,8 @@
             </ul>
         </nav>
         
+        <!--부트스트랩으로는 안되서  style 로 했음-->
+        <!--<div class="mx-auto fixed-bottom p-3 d-flex justify-content-end">-->
         <div class="" style="position:fixed;right:30px;bottom:30px">
             <a href="#" class="float-right text-dark" ><i class="fas fa-arrow-up fa-2x"></i></a>
         </div>

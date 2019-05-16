@@ -5,13 +5,16 @@
 
 {% block bb %}
     <div class="fontchange" style="font-family: 'Noto Sans KR', sans-serif;">
+    <!--상단 이미지-->
     <div class="col-12 p-0">
     <img src="{{movie.backdrop_path}}" style="width:100%; height:500px; opacity:0.8"   />
     </div>
         
     <div class="container">
+    <!--영화 제목-->
         <div class="pt-4">
             <span style="font-size:45px"><b>{{movie.title}}</b></span>
+            <!--평점 예쁘게-->
             {% if ratingAvg >= 5 %}
                 <a><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i> {{ratingAvg}}점</a>
             {% elif ratingAvg >= 4.5 %}
@@ -38,9 +41,11 @@
             {% if user.is_authenticated %}
                 {% for score in movie.score_set.all %}
                     {% if score.user == request.user %}
+                        <!--현재 로그인 유저가 작성한 별점-->
                         <span><b>{{score.user.username}}</b>님의 별+점 {{score.rating}}점</span>
                     {% endif %}
                 {% endfor %}
+                <!--별점 입력-->
                 <p>{% include 'movies/rating.html' %} </p>
             {% endif %}
         </div>
@@ -48,10 +53,13 @@
         
             
         
+        <!--영화 정보-->
         <div class="row my-5">
+            <!--영화 이미지-->
             <div class="col-md-4 d-flex my-3">
                 <img src="{{movie.poster_path}}"  style="width:100%; height:100%" />
             </div>
+            <!--영화 정보-->
             <div class="col-md-8 d-flex my-3">
                 <div>
                     <h5 class="mr-3">장르: {{movie.genre}}</h5>
@@ -85,6 +93,7 @@
             <div class="inblockclass">
                 <p style="display: inline-block">{{ comment.content }} &nbsp;</a> | <strong>{{comment.user.username}}</strong> <a class="font-weight-light">&nbsp; {{ comment.created_at }}</a></p>
                     
+                <!--댓글 삭제-->
                 {% if comment.user == user %}
                     <form method='post' action="{% url 'movies:commentDelete' movie.id comment.id %}" style="display: inline-block ">
                         {% csrf_token %}
@@ -95,6 +104,7 @@
             <hr>
         {% endfor %}
         
+        <!--연관 영화 이미지-->
         <p class="h3 my-3"><b>추천 영화</b></p>
         {% if res %}
             {% for r in res %}
