@@ -73,6 +73,7 @@ def moviePickUp(request):
                 production_company = company,
                 tmd_id = tmd_id,
                 director = director,
+                homepage = homepage,
                 )
     return render(request, 'movies/moviePickUp.html')
 
