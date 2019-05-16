@@ -16,7 +16,9 @@ from django.contrib import admin
 """
 from django.urls import path, include
 from django.contrib import admin
+from movies import views
 urlpatterns = [
+    path('', views.main),
     path('admin/', admin.site.urls),
     path('movies/', include('movies.urls')),
     path('accounts/', include('accounts.urls')),

@@ -4,10 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 
 # Create your views here.
-def list(request):
-    # users = User.objects.all()
-    # return render(request, 'accounts/list.html',{'users':users})
-    pass
+
 def signup(request):
     if request.user.is_authenticated:
         return redirect('movies:main')
@@ -30,8 +27,8 @@ def login(request):
             return redirect('movies:main')
     else:
         form = AuthenticationForm()
-    
     return render(request, 'accounts/forms.html', {'form': form})
+    
 def logout(request):
     auth_logout(request)
     return redirect('movies:main')

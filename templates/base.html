@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,55 +7,155 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Todal</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo|Playfair+Display|Playfair+Display+SC" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+    <style type="text/css">
+        body {
+            background-color: #f7f7ee;
+            font-family: 'Nanum Myeongjo', serif;
+            
+        }
+        nav {
+            font-family: 'Playfair Display SC', serif;
+            background: rgba(247, 247, 238, 0.5);
+        
+        }
+        .fontchage{
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .modal {
+        text-align: center;
+        }
+        @media screen and (min-width: 768px) { 
+                .modal:before {
+                        display: inline-block;
+                        vertical-align: middle;
+                        content: " ";
+                        height: 100%;
+                }
+        }
+        .modal-dialog {
+                display: inline-block;
+                text-align: left;
+                vertical-align: middle;
+        }
+        .inblockclass {
+            display: inline-block;
+        }
+        
+        { 
+            text-decoration:none 
+        } 
+
+    </style>
 </head>
 <body>
     <!--화면 맨위navbar-->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light px-5">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light  px-5">
         <a class="navbar-brand" href="{% url 'movies:main' %}">
-            Todal
+            <i class="fas fa-film"></i> Todal Movie
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav">
-                
-                <li>
-                    <a href={% url 'movies:search'%}>검색하기</a>
+                <li class="nav-item">
+                     <a class="nav-link" href={% url 'movies:search'%}><i class="fas fa-search"></i> Search</a>
                 </li>
-                
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:logout' %}">로그아웃</a>
+                        <a class="nav-link" href={% url 'movies:person' %}><i class="fas fa-wine-glass-alt"></i> Today's </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"> --- </a>
+                        <a class="nav-link"><i class="fas fa-user-alt"></i> {{user}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:logout' %}">Log-out</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
+                        <a class="nav-link" href="{% url 'accounts:signup' %}">Sign up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:login' %}">로그인</a>
+                        <a class="nav-link" href="{% url 'accounts:login' %}">Sign in</a>
                     </li>
-                
                 {% endif %}
-                
-
             </ul>
         </div>
     </nav>
     <!--navbar-->
     
+    {% block bb %}
+    {% endblock %}
+    
+    
+    <!--footer-->
+    <footer >
+        <br><br>
+        <hr><br>
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+              <a class="btn" data-toggle="modal" data-target="#myModal">데이터 출처</a>
+                  <!--modal //-->
+                  <div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">데이터 출처</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <img class="" src="https://www.themoviedb.org/assets/2/v4/logos/256x256-dark-bg-01a111196ed89d59b90c31440b0f77523e9d9a9acac04a7bac00c27c6ce511a9.png" style="height:150px; height:150px"></img>
+                            <br><br>
+                            <a href="https://www.themoviedb.org/" target="_blank" class="fontchage">The movie db</a>
+                            <p class="fontchage"> All movie related metadata used in Todal, including cast/crew, release date, genre, poster artworks is provided by TMDb.</p>
+                            <p><b>Todal uses the TMDb API but is not endorsed or certified by TMDb.</b></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--// modal-->
+              <a>| &nbsp; 서비스 이용 약관 &nbsp;</a> 
+              <a>| &nbsp; 개인정보 처리 방침 </a>
+          </li>
+        </ul>
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <h6>Created By team Todal &nbsp;|&nbsp;  고객센터: todal160122@gmail.com </h6>
+          </li>
+        </ul>
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <p class="font-italic">Copyright 2019. Todal. All right reserved. <p>
+          </li>
+        </ul><br>
+    </footer>
     
     
     
-    <div class="container">
-        {% block bb %}
-        {% endblock %}
-    </div>
-    
-    
+    <!--main img 움직임-->
+    <script type="text/javascript">
+        const igs = document.querySelectorAll('#mainImg')
+        igs.forEach((ig) => {
+            ig.addEventListener('mouseover', (e) => {
+            ig.style.marginTop = "-20px"
+            })
+        })
+     
+        igs.forEach((ig) => {
+            ig.addEventListener('mouseout', (e) => {
+            ig.style.marginTop = "0px"
+            })
+        })
+        
+    <!--main img 움직임-->
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
 {% block bb %}
-    <h1>영화 data 수집용</h1>
+    <div class="container">
+        <h1>영화 data 수집 완료</h1>
+        <a href="{% url 'movies:main' %}"><button>Todal main</button></a>
+    </div>      
 {% endblock %}

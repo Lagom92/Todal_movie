@@ -1,38 +1,122 @@
 {% extends 'base.html'%}
 <!--영화의 상세 내용을 나타내는 페이지-->
 
+{% load bootstrap4 %}
+
 {% block bb %}
-    <div class="row my-5">
-        
-        <div class="col-4 d-flex justify-content-end">
-            <!--영화 이미지-->
-            <img src="{{movie.poster_path}}" width=300px height=400px />
-            <!--영화 이미지가 없으면 대체 이미지가 나오게 함-->
-        </div>
-        
-        <div class="col-6">
-            <!--유저 정보-->
-            <div class="row d-flex align-items-center">
-                <h2 style="text-center">{{movie.title}}</h2>
-            </div>
-            <br>
-            <div>
-                <h5 class="mr-3">개봉일: {{movie.release_date}}</h5>
-                <h5 class="mr-3">장르: {{movie.genre}}</h5>
-                <h5 class="mr-3">제작사: {{movie.production_company}}</h5>
-                <h5 class="mr-3">줄거리: {{movie.overview}}</h5>
-                <h5><a href="{{movie.homepage}}" target="_blank">관련 홈페이지</a></h5>
-            </div>
-        </div>
-        
-        
-        
+    <div class="fontchange" style="font-family: 'Noto Sans KR', sans-serif;">
+    <!--상단 이미지-->
+    <div class="col-12 p-0">
+    <img src="{{movie.backdrop_path}}" style="width:100%; height:500px; opacity:0.8"   />
     </div>
+        
+    <div class="container">
+    <!--영화 제목-->
+        <div class="pt-4">
+            <span style="font-size:45px"><b>{{movie.title}}</b></span>
+            <!--평점 예쁘게-->
+            {% if ratingAvg >= 5 %}
+                <a><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i> {{ratingAvg}}점</a>
+            {% elif ratingAvg >= 4.5 %}
+                <a><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star-half-alt text-warning"></i> {{ratingAvg}}점</a>
+            {% elif ratingAvg >= 4 %}
+                <a><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="far fa-star text-warning"></i>{{ratingAvg}}점</a>
+            {% elif ratingAvg >= 3.5 %}
+                <a><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"><i class="fas fa-star-half-alt text-warning"></i></i><i class="far fa-star text-warning"></i> {{ratingAvg}}점</a>
+            {% elif ratingAvg >= 3 %}
+                <a><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="far fa-star text-warning"></i><i class="far fa-star text-warning"></i>{{ratingAvg}}점</a>
+            {% elif ratingAvg >= 2.5 %}
+                <a><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star-half-alt text-warning"></i><i class="far fa-star text-warning"></i><i class="far fa-star text-warning"></i> {{ratingAvg}}점</a>
+            {% elif ratingAvg >= 2 %}
+                <a><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="far fa-star text-warning"></i><i class="far fa-star text-warning"></i><i class="far fa-star text-warning"></i>{{ratingAvg}}점</a>
+            {% elif ratingAvg >= 1.5 %}
+                <a><i class="fas fa-star text-warning"></i><i class="fas fa-star-half-alt text-warning"></i><i class="far fa-star text-warning"></i><i class="far fa-star text-warning"></i><i class="far fa-star text-warning"></i> {{ratingAvg}}점</a>
+            {% elif ratingAvg >= 1 %}
+                <a><i class="fas fa-star text-warning"></i><i class="far fa-star text-warning"></i><i class="far fa-star text-warning"></i><i class="far fa-star text-warning"></i><i class="far fa-star text-warning"></i> {{ratingAvg}}점</a>
+            {% endif %}
     
-    <hr>
-    <h3>댓글</h3>
-    
-    
-    
-    <!---->
+        <hr> 
+        
+            <span>지금까지 이 영화에 {{movie.score_set.all.count}}개의 별점이 쌓였어요! &nbsp; </span>
+            {% if user.is_authenticated %}
+                {% for score in movie.score_set.all %}
+                    {% if score.user == request.user %}
+                        <!--현재 로그인 유저가 작성한 별점-->
+                        <span><b>{{score.user.username}}</b>님의 별+점 {{score.rating}}점</span>
+                    {% endif %}
+                {% endfor %}
+                <!--별점 입력-->
+                <p>{% include 'movies/rating.html' %} </p>
+            {% endif %}
+        </div>
+       
+        
+            
+        
+        <!--영화 정보-->
+        <div class="row my-5">
+            <!--영화 이미지-->
+            <div class="col-md-4 d-flex my-3">
+                <img src="{{movie.poster_path}}"  style="width:100%; height:100%" />
+            </div>
+            <!--영화 정보-->
+            <div class="col-md-8 d-flex my-3">
+                <div>
+                    <h5 class="mr-3">장르: {{movie.genre}}</h5>
+                    <h5 class="mr-3">감독: {{movie.director}}</h5>
+                    <h5 class="mr-3">제작사: {{movie.production_company}}</h5>
+                    <h5 class="mr-3">개봉일: {{movie.release_date}}</h5>
+                    <h5>관련 홈페이지: <a href="{{movie.homepage}}" target="_blank">{{movie.homepage}}</a></h5>
+                    <h5>예매사이트:&nbsp;<a href='http://www.cgv.co.kr/search/?query={{movie.title}}' target="_blank" style="text-decoration:none"> <img src="/static/images/CGV_BI_bc.jpg" style="height:10%;width:10%"></a></h5>
+                    <h5 class="mr-3">줄거리<hr></h5>
+                    <p> {{movie.overview}}</p>
+                </div>
+            </div>
+        </div>
+        
+ 
+        <hr>
+        <p>지금까지 이 영화에 {{movie.comment_set.all.count}}개의 댓글이 있어요!</p>
+        {% if user.is_authenticated %}
+        
+        <div class="col-10">
+            <form action="{% url 'movies:commentCreate' movie.id %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form comment_form %} 
+                <input type="submit" value="작성" class="btn btn-warning btn-sm">
+            </form>
+        {% endif %}
+        
+        <hr>
+        
+        {% for comment in movie.comment_set.all %}
+            <div class="inblockclass">
+                <p style="display: inline-block">{{ comment.content }} &nbsp;</a> | <strong>{{comment.user.username}}</strong> <a class="font-weight-light">&nbsp; {{ comment.created_at }}</a></p>
+                    
+                <!--댓글 삭제-->
+                {% if comment.user == user %}
+                    <form method='post' action="{% url 'movies:commentDelete' movie.id comment.id %}" style="display: inline-block ">
+                        {% csrf_token %}
+                        <input type="submit" value="삭제" class="btn btn-danger btn-sm"/>
+                    </form>
+                {% endif %}
+            </div>
+            <hr>
+        {% endfor %}
+        
+        <!--연관 영화 이미지-->
+        <p class="h3 my-3"><b>추천 영화</b></p>
+        {% if res %}
+            {% for r in res %}
+                {% if r.ul == movie.id %}
+                    <img src="{{r.ig}}" width="150" height="200" class="mr-3 mb-3"></img>
+                {% else %}
+                    <a href="{% url 'movies:detail' r.ul %}"><img src="{{r.ig}}" width="150" height="200" class="mr-3 mb-3"></img></a>
+                {% endif %}
+            {% endfor%}
+        {% else %}
+            <p>추천 영화가 없습니다.</p>
+        {% endif %}
+        </div>
+    </div>    
 {% endblock %}

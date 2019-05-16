@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {% block bb %}
-<form action="" method="post">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value="완료">
-    
-</form>
+<div class="container">
+    <div class="fontchage d-flex justify-content-center"> 
+        <form action="" method="post" style="height:570px" class="mt-5 col-6">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="submit" value="회원가입" class="btn btn-secondary">
+        </form>
+    </div>
+</div>
 {% endblock %}

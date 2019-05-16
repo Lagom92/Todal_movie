@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'movies',
     'accounts',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-# 우리가 accounts에 만든 유저 모델 사용하기위해
-AUTH_USER_MODEL = 'accounts.User'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]

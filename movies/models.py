@@ -12,15 +12,22 @@ class Movie(models.Model):
     homepage = models.CharField(max_length=150)
     release_date = models.CharField(max_length=50)
     backdrop_path = models.CharField(max_length=150)
+    director = models.CharField(max_length=100)
     
     
     def __str__(self):
         return self.title
 
+
 class Comment(models.Model):
-    # 외래키 필요
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    # user 한명이 comment 여러개 작성 가능
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete = models.CASCADE)
     content = models.CharField(max_length=100)
-    created_At = models.DateTimeField(auto_now_add= True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+class Score(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete = models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+
+    # 은또라 안뇽>_<

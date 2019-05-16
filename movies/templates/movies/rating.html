@@ -1,0 +1,13 @@
+<!--평점 폼-->
+<form action="{% url 'movies:scoreCreate' movie.id %}" method="POST">
+    {% csrf_token %}
+    <select name="rating" id="rating">
+        <option value="1">★☆☆☆☆</option>
+        <option value="2">★★☆☆☆</option>
+        <option value="3">★★★☆☆</option>
+        <option value="4">★★★★☆</option>
+        <option value="5">★★★★★</option>
+    </select>
+    <input type="submit" value="별점" class="btn btn-secondary btn-sm">
+</form>
+
