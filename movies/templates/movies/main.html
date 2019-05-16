@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block bb %}
+
+
+    <h2>영화 제목으로 영화를 검색하세요 *^^*</h2>
+    <!--영화 검색 -->
+    <form method="GET">
+        {% csrf_token %}
+        <input type="text" name="searchword" value="{{searchword}}">
+        <input type="submit", value="search">
+    </form>
+    
+    <!--영화 목록-->
+    {% for movie in movies %}
+        <h3>{{movie.title}}</h3>
+        <img src="{{movie.poster_path}}"></img>
+    {% endfor %}
+    
+{% endblock %}

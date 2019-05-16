@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+
+{% block bb %}
+<!--작품, 제목,배우,감독으로 원하는 영화를 검색-->
+<form method="GET">
+    {% csrf_token %}
+    <input type="text" name="searchword" value="{{searchword}}">
+    <input type="submit", value="search">
+</form>
+
+
+{% endblock %}
