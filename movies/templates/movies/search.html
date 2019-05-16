@@ -1,13 +1,11 @@
 {% extends 'base.html'%}
 {% load static %}
 {% block bb %}
-<!--작품, 제목,배우,감독으로 원하는 영화를 검색-->
   <div class="col-md-12 p-0">
     <img src="/static/images/search2.jpg" style="width:100%; height:600px"  >
     <div class="carousel-caption">
       <h1 class=" text-black mb-0 pt-md-5 pt-5 wow fadeInDown" data-wow-delay="0.3s" style="font-family: 'Playfair Display SC'">Todal Movie</h1>         
       <br><br><br>
-      <!--영화 검색 -->
       <div class="justify-content-center">
           <form method="GET" class="d-flex justify-content-center">
               <i class="fas fa-search fa-2x"></i>
@@ -16,7 +14,6 @@
       </div>
     </div>
   </div>
-  <!--안좋은 방법이지만 밑에 빈 공간을 만들어주고 싶어서 사용함-->
   <div style="height:300px"></div>
 
 {% endblock %}
