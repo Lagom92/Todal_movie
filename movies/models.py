@@ -30,4 +30,4 @@ class Score(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     rating = models.IntegerField()
 
-    # 은또라 안뇽>_<
+   
