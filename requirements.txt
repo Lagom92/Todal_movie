@@ -5,4 +5,4 @@ django-bootstrap4==0.0.8
 idna==2.8
 pytz==2019.1
 requests==2.21.0
-urllib3==1.24.3
+urllib3==1.26.5
